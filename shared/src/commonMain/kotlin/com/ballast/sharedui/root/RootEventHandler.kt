@@ -1,4 +1,4 @@
-package com.adrianwitaszak.ballastsharedui.root
+package com.ballast.sharedui.root
 
 import com.copperleaf.ballast.EventHandler
 import com.copperleaf.ballast.EventHandlerScope

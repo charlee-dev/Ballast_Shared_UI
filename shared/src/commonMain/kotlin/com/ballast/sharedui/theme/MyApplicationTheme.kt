@@ -1,4 +1,4 @@
-package com.adrianwitaszak.ballastsharedui.theme
+package com.ballast.sharedui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape

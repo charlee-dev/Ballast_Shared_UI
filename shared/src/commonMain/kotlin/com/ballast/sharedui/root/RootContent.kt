@@ -1,4 +1,4 @@
-package com.adrianwitaszak.ballastsharedui.root
+package com.ballast.sharedui.root
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,7 +17,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.adrianwitaszak.ballastsharedui.theme.MyApplicationTheme
+import com.ballast.sharedui.theme.MyApplicationTheme
 
 @Composable
 internal fun RootContent() {

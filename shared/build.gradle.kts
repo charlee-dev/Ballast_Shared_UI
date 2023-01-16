@@ -6,7 +6,12 @@ plugins {
 
 kotlin {
     android()
-    
+    jvm("desktop") {
+        compilations.all {
+            kotlinOptions.jvmTarget = "11"
+        }
+    }
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -61,6 +66,11 @@ kotlin {
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
+        val desktopMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+            }
+        }
     }
 }
 
@@ -70,5 +80,14 @@ android {
     defaultConfig {
         minSdk = 24
         targetSdk = 33
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "MainKt"
+        nativeDistributions {
+            packageName = "Ballast"
+        }
     }
 }

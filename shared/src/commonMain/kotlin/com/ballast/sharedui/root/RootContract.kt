@@ -1,4 +1,4 @@
-package com.adrianwitaszak.ballastsharedui.root
+package com.ballast.sharedui.root
 
 object RootContract {
     data class State(

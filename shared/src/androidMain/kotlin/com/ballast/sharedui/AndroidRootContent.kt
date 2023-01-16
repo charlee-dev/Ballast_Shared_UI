@@ -1,7 +1,7 @@
-package com.adrianwitaszak.ballastsharedui
+package com.ballast.sharedui
 
 import androidx.compose.runtime.Composable
-import com.adrianwitaszak.ballastsharedui.root.RootContent
+import com.ballast.sharedui.root.RootContent
 
 @Composable
 fun AndroidRootContent() {

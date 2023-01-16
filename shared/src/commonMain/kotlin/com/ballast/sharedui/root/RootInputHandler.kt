@@ -1,4 +1,4 @@
-package com.adrianwitaszak.ballastsharedui.root
+package com.ballast.sharedui.root
 
 import com.copperleaf.ballast.InputHandler
 import com.copperleaf.ballast.InputHandlerScope

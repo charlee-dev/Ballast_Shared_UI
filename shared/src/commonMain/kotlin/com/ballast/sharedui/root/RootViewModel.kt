@@ -1,4 +1,4 @@
-package com.adrianwitaszak.ballastsharedui.root
+package com.ballast.sharedui.root
 
 import com.copperleaf.ballast.BallastViewModelConfiguration
 import com.copperleaf.ballast.build
