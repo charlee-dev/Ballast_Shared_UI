@@ -1,17 +1,11 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("org.jetbrains.compose") version "1.2.2"
+    id("org.jetbrains.compose")
 }
 
 kotlin {
     android()
-    jvm("desktop") {
-        compilations.all {
-            kotlinOptions.jvmTarget = "11"
-        }
-    }
-
     listOf(
         iosX64(),
         iosArm64(),
@@ -23,9 +17,31 @@ kotlin {
         }
     }
 
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        binaries.all {
-            freeCompilerArgs += "-Xdisable-phases=VerifyBitcode"
+    val args = listOf(
+        "-linker-option", "-framework", "-linker-option", "Metal",
+        "-linker-option", "-framework", "-linker-option", "CoreText",
+        "-linker-option", "-framework", "-linker-option", "CoreGraphics"
+    )
+    iosX64("uikitX64") {
+        binaries {
+            executable {
+                entryPoint = "main"
+                freeCompilerArgs = freeCompilerArgs + args
+            }
+        }
+    }
+    iosArm64("uikitArm64") {
+        binaries {
+            executable {
+                entryPoint = "main"
+                freeCompilerArgs = freeCompilerArgs + args
+                freeCompilerArgs = freeCompilerArgs + "-Xdisable-phases=VerifyBitcode"
+            }
+        }
+    }
+    jvm("desktop") {
+        compilations.all {
+            kotlinOptions.jvmTarget = "11"
         }
     }
 
@@ -66,6 +82,18 @@ kotlin {
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
+        val nativeMain by creating {
+            dependsOn(commonMain)
+        }
+        val uikitMain by creating {
+            dependsOn(nativeMain)
+        }
+        val uikitX64Main by getting {
+            dependsOn(uikitMain)
+        }
+        val uikitArm64Main by getting {
+            dependsOn(uikitMain)
+        }
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
@@ -83,11 +111,36 @@ android {
     }
 }
 
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-        nativeDistributions {
-            packageName = "Ballast"
+compose {
+    desktop {
+        application {
+            mainClass = "MainKt"
+            nativeDistributions {
+                targetFormats(
+                    org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
+                    org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
+                    org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb
+                )
+                packageName = "Ballast"
+                packageVersion = "1.0.0"
+            }
+        }
+    }
+
+    experimental {
+        uikit.application {
+            bundleIdPrefix = "com.ballast"
+            projectName = "Ballast"
+            deployConfigurations {
+                simulator("IPhone13Pro") {
+                    //Usage: ./gradlew iosDeployIPhone8Debug
+                    device = org.jetbrains.compose.experimental.dsl.IOSDevices.IPHONE_13_PRO
+                }
+                connectedDevice("Device") {
+//                Usage: ./gradlew iosDeployDeviceRelease
+//                this.teamId = ""
+                }
+            }
         }
     }
 }

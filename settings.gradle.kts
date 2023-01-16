@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Ballast_Shared_UI"
+rootProject.name = "BallastSharedUI"
 include(":androidApp")
 include(":shared")

@@ -20,14 +20,14 @@ import androidx.compose.ui.unit.dp
 import com.ballast.sharedui.theme.MyApplicationTheme
 
 @Composable
-internal fun RootContent() {
+internal fun RootContent(modifier: Modifier = Modifier) {
     val coroutineScope = rememberCoroutineScope()
     val vm = remember(coroutineScope) { RootViewModel(coroutineScope) }
     val state by vm.observeStates().collectAsState()
 
     MyApplicationTheme {
         Surface(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
             Box(
