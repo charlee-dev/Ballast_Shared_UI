@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
 }
 
-val compose = "1.4.0-alpha04"
+val compose = "1.3.1"
 
 android {
     namespace = "com.adrianwitaszak.ballastsharedui.android"
